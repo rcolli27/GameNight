@@ -1,7 +1,7 @@
 html {
     height: 100%;
     background-color: lightgrey;
-    background: linear-gradient(135deg, rgb(231, 243, 230) 5%, rgb(234, 227, 220) 50%, rgb(208, 210, 213) 95%);
+    background: linear-gradient(135deg, rgb(231, 240, 233) 5%, rgb(234, 227, 220) 50%, rgb(208, 210, 213) 95%);
 }
 
 body {
@@ -11,15 +11,20 @@ body {
     display: flex;
     flex-direction:column;
 }
-.nav-ul {
+nav {
     background-color: #4B535D;
     border-radius: 0 0 20px 20px;
     width: 100%;
-    margin: 0;
-    padding: 0;
+    flex: 1 0 auto;
+}
+.nav-ul {
     list-style-type: none;
     overflow: hidden;
-    flex: 1 0 auto;
+    padding: 0;
+    margin: 0;
+}
+.upper {
+    border-bottom: 2px solid black;
 }
 .nav-left {
     float: left;
@@ -27,7 +32,7 @@ body {
 .nav-right {
     float: right;
 }
-.nav-a {
+.nav-a, .nav-user{
     padding: 14px 16px;
     text-align: center;
     display: block;
@@ -37,15 +42,32 @@ body {
 .nav-a:hover {
     background-color: darkslategrey;
 }
-
+.nav-home {
+    padding: 0 14px;
+    margin: 0;
+    height: 94px;
+    float: left;
+}
+.nav-img {
+    width: auto;
+    height: 94px;
+}
 main {
     flex: 1 0 auto;
+    margin: 0 5%;
 }
-
+main > p {
+    margin: 8px 12px;
+}
 footer {
     flex-shrink: 0;
     background-color: #4B535D;
     border-radius: 20px 20px 0 0;
     width: 100%;
     text-align: center;
+}
+footer a {
+    text-align: center;
+    color: #FEF6EB;
+    text-decoration: none;
 }
