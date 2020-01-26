@@ -71,3 +71,12 @@ footer a {
     color: #FEF6EB;
     text-decoration: none;
 }
+.outer-list, .inner-list {
+    list-style-type: none;
+}
+.outer-list > li {
+    font-size: 20pt;
+}
+.outer-list a, .outer-list a:visited {
+    color: cornflowerblue;
+}
