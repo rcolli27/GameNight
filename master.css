@@ -76,8 +76,11 @@ footer a {
 .outer-list, .inner-list {
     list-style-type: none;
 }
-.outer-list > li {
+.outer-list {
     font-size: 20pt;
+}
+.inner-list {
+    font-size: 12pt;
 }
 .outer-list a, .outer-list a:visited {
     color: cornflowerblue;
