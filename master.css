@@ -54,7 +54,9 @@ nav {
 }
 main {
     flex: 1 0 auto;
-    margin: 0 5%;
+    margin: 0 8%;
+    max-width: 1200px;
+
 }
 main > p {
     margin: 8px 12px;
@@ -110,4 +112,21 @@ footer a {
 }
 #going-maybe {
     background-color: blue;
+}
+table, td, th{
+    border: 1px solid black;
+    padding: 3px;
+    text-align: center;
+}
+td button {
+    padding: 3px 8px;
+    margin: 0 8px;
+    background-color: #4B535D;
+    color: white;
+    border: none;
+    border-radius: 3px;
+}
+td button:hover {
+    cursor: pointer;
+    background-color: #202020;
 }
