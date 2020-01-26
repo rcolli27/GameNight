@@ -98,6 +98,7 @@ footer a {
     color: white;
     border: none;
     font-size: 16px;
+    box-shadow: grey 2px 3px 5px;
 }
 .going-form:hover {
     background-color: darkgrey !important;
@@ -125,6 +126,7 @@ td button {
     color: white;
     border: none;
     border-radius: 3px;
+    box-shadow: grey 2px 3px 5px;
 }
 td button:hover {
     cursor: pointer;
