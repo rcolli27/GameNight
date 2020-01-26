@@ -80,3 +80,34 @@ footer a {
 .outer-list a, .outer-list a:visited {
     color: cornflowerblue;
 }
+.profile-picture {
+    float: left;
+    height: 100px;
+}
+.outer-flex {
+    display: flex;
+}
+.inner-flex {
+    flex: 1 0 auto;
+}
+.going-form {
+    padding: 3px 12px;
+    border-radius: 3px;
+    color: white;
+    border: none;
+    font-size: 16px;
+}
+.going-form:hover {
+    background-color: darkgrey !important;
+    color: black;
+    cursor: pointer;
+}
+#going-yes {
+    background-color: green;
+}
+#going-no {
+    background-color: red;
+}
+#going-maybe {
+    background-color: blue;
+}
