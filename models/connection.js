@@ -1,11 +1,25 @@
 class connection {
-    constructor(ID, type, game, name, details, date, time) {
+    constructor(ID, type, game, details, date, location) {
         this.ID = ID;
         this.type = type;
         this.game = game;
         this.details = details;
-        this.date = date;
-        this.time = time;
+        //split datetime to show date then time
+        let datetime = date.split("T");
+        this.date = datetime[0];
+        //split time to show hour and minute to swap from 24hr to 12hr clock
+        let temptime = datetime[1].split("/");
+        if (parseInt(temptime[0]) == 0) {
+            this.time = '12:' + temptime[1] + 'AM';
+        } else if (parseInt(temptime[0]) > 0 && parseInt(temptime[0]) < 12) {
+            this.time = datetime[1] + 'AM'
+        }
+        else if (parseInt(temptime[0]) == 12) {
+            this.time = datetime[1] + 'PM';
+        } else {
+            this.time = temptime[0] - 12 + ':' + temptime[1] + 'PM';
+        }
+        this.location = location;
     }
     getID() {
         return this.ID;
@@ -25,6 +39,9 @@ class connection {
     gettime() {
         return this.time;
     }
+    getLocation() {
+        return this.location;
+    }
 
     setID(ID) {
         this.ID = ID;
@@ -43,6 +60,9 @@ class connection {
     }
     settime(time) {
         this.time = time;
+    }
+    setLocation(location) {
+        this.location = location;
     }
 }
 
