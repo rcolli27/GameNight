@@ -5,13 +5,13 @@
 
     <main class="outer-flex">
         <div class="inner-flex">
-            <h1><%= conn.getGame() %></h1>
+            <h1><%= conn.game %></h1>
             <p>
                 <img class="profile-picture" src="assets/images/profile-picture.png" alt="profile picture">
                 Hosted by *Host*<br />
-                <%= conn.getDate() %><br />
-                <%= conn.getTime() %><br />
-                <%= conn.getLocation() %><br />
+                <%= conn.date %><br />
+                <%= conn.time %><br />
+                <%= conn.location %><br />
             </p>
             <br />
             <h2>Details</h2>
@@ -24,7 +24,7 @@
                 Are you going?
             </h3>
             <br />
-            <form action="savedConnections.html" method="get">
+            <form action="/savedConnections" method="post">
                 <button class="going-form" type="submit" id="going-yes">Yes</button>
                 <button class="going-form" type="submit" id="going-no">No</button>
                 <button class="going-form" type="submit" id="going-maybe">Maybe</button>

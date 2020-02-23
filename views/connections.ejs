@@ -8,18 +8,18 @@
             <li>
                 Board Games
                 <ul class="inner-list">
-                    <% for (conn in connections) { 
-                        if (conn.getType() === 'board') { %>           <!--Creates a new list entry for each board game connection-->
-                            <li><a href="./connections/<%= conn.getID() %>"><%= conn.getGame %> - <%= conn.getDate() %> <%= conn.getTime() %></li>
+                    <% for (conn of connections) {
+                        if (conn.type === 'board') { %>           <!--Creates a new list entry for each board game connection-->
+                            <li><a href="../connections/<%= conn.ID %>"><%= conn.game %>  -  <%= conn.date %>,  <%= conn.time %></a></li>
                     <% }} %>
                 </ul>
             </li>
             <li>
                 Card Games
                 <ul class="inner-list">
-                    <% for (conn in connections) { 
-                        if (conn.getType() === 'card') { %>           <!--Creates a new list entry for each card game connection-->
-                            <li><a href="./connections/<%= conn.getID() %>"><%= conn.getGame %> - <%= conn.getDate() %> <%= conn.getTime() %></li>
+                    <% for (conn of connections) {
+                        if (conn.type === 'card') { %>           <!--Creates a new list entry for each card game connection-->
+                            <li><a href="../connections/<%= conn.ID %>"><%= conn.game %>  -  <%= conn.date %> <%= conn.time %></a></li>
                     <% }} %>
                 </ul>
             </li>

@@ -3,7 +3,7 @@ var app = express();
 
 app.set('view engine', 'ejs');
 
-app.use('/assets', express.static('assets'));
+app.use('*/assets', express.static('assets'));
 
 let connections = require('./controllers/Connections.js');
 
@@ -27,6 +27,14 @@ app.get('/contact', function (req, res) {
 
 app.get('/savedConnections', function (req, res) {
     res.render('savedConnections');
+});
+
+app.post('/savedConnections', function (req, res) {
+    res.render('savedConnections');
+});
+
+app.post('/newConnection', function (req, res) {
+    res.render(connections);
 });
 
 app.listen(8080, '127.0.0.1');
