@@ -15,11 +15,9 @@ let con5 = new Connection(5, 'card', 'Black Jack', det5, "2020-03-08T18:00", "Wo
 let con6 = new Connection(6, 'card', 'Apples to Apples', det6, "2020-03-09T18:00", "Woodward 120");
 
 let connections = [con1, con2, con3, con4, con5, con6];
-console.log("Loading");
 
 
 var getConnections = function () {
-    console.log("Loading inner");
     return connections;
 };
 
