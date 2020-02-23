@@ -8,29 +8,19 @@
             <li>
                 Board Games
                 <ul class="inner-list">
-                    <li>
-                        <a href="connection.html">Scrabble - Friday, February 7th 6:30pm</a>
-                    </li>
-                    <li>
-                        <a href="connection.html">Monopoly - Thursday, February 6th 6:30pm</a>
-                    </li>
-                    <li>
-                        <a href="connection.html">The Game of Life - Wednesday, February 5th 6:30pm</a>
-                    </li>
+                    <% for (conn in connections) { 
+                        if (conn.getType() === 'board') { %>           <!--Creates a new list entry for each board game connection-->
+                            <li><a href="./connections/<%= conn.getID() %>"><%= conn.getGame %> - <%= conn.getDate() %> <%= conn.getTime() %></li>
+                    <% }} %>
                 </ul>
             </li>
             <li>
                 Card Games
                 <ul class="inner-list">
-                    <li>
-                        <a href="connection.html">Poker - Friday, February 7th 5:00pm</a>
-                    </li>
-                    <li>
-                        <a href="connection.html">Black Jack - Thursday, February 6th 5:00pm</a>
-                    </li>
-                    <li>
-                        <a href="connection.html">Apples to Apples - Wednesday, February 5th 5:00pm</a>
-                    </li>
+                    <% for (conn in connections) { 
+                        if (conn.getType() === 'card') { %>           <!--Creates a new list entry for each card game connection-->
+                            <li><a href="./connections/<%= conn.getID() %>"><%= conn.getGame %> - <%= conn.getDate() %> <%= conn.getTime() %></li>
+                    <% }} %>
                 </ul>
             </li>
         </ul>

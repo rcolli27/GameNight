@@ -5,18 +5,18 @@
 
     <main class="outer-flex">
         <div class="inner-flex">
-            <h1>Scrabble</h1>
+            <h1><%= conn.getGame() %></h1>
             <p>
                 <img class="profile-picture" src="assets/images/profile-picture.png" alt="profile picture">
                 Hosted by *Host*<br />
-                *Date*<br />
-                *Time*<br />
-                *Location*<br />
+                <%= conn.getDate() %><br />
+                <%= conn.getTime() %><br />
+                <%= conn.getLocation() %><br />
             </p>
             <br />
             <h2>Details</h2>
             <p>
-                *Details from event posting*
+                <%= conn.getDetails %>
             </p>
         </div>
         <div class="inner-flex">
