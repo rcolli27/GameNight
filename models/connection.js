@@ -8,7 +8,7 @@ class connection {
         let datetime = date.split("T");
         this.date = datetime[0];
         //split time to show hour and minute to swap from 24hr to 12hr clock
-        let temptime = datetime[1].split("/");
+        let temptime = datetime[1].split(":");
         if (parseInt(temptime[0]) == 0) {
             this.time = '12:' + temptime[1] + 'AM';
         } else if (parseInt(temptime[0]) > 0 && parseInt(temptime[0]) < 12) {
