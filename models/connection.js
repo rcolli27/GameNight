@@ -6,7 +6,8 @@ class connection {
         this.details = details;
         //split datetime to show date then time
         let datetime = date.split("T");
-        this.date = datetime[0];
+        let tempdate = datetime[0].split("-");
+        this.date = tempdate[1] + "/" + tempdate[2] + "/" + tempdate[0];
         //split time to show hour and minute to swap from 24hr to 12hr clock
         let temptime = datetime[1].split(":");
         if (parseInt(temptime[0]) == 0) {
