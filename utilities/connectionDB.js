@@ -26,7 +26,7 @@ var getConnection = new function (ID) {
     for (var con of connections) {
         if (con.getID() == ID) return con;
     }
-    return 'Not a valid ID';
+    return -1;
 };
 
 module.exports = {
