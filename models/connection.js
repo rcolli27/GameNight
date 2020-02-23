@@ -3,7 +3,6 @@ class connection {
         this.ID = ID;
         this.type = type;
         this.game = game;
-        this.name = name;
         this.details = details;
         this.date = date;
         this.time = time;
@@ -16,9 +15,6 @@ class connection {
     }
     getgame() {
         return this.game;
-    }
-    getname() {
-        return this.name;
     }
     getdetails() {
         return this.details;
@@ -38,9 +34,6 @@ class connection {
     }
     setgame(game) {
         this.game = game;
-    }
-    setname(name) {
-        this.name = name;
     }
     setdetails(details) {
         this.details = details;
