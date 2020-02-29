@@ -5,24 +5,17 @@
 
     <main>
         <ul class="outer-list">
+            <% for (cat of categories) { %>
             <li>
-                Board Games
+                <%= cat %> Game
                 <ul class="inner-list">
                     <% for (conn of connections) {
-                        if (conn.type === 'board') { %>           <!--Creates a new list entry for each board game connection-->
+                        if (conn.type === cat) { %>           <!--Creates a new list entry for each board game connection-->
                             <li><a href="../connections/<%= conn.ID %>"><%= conn.game %>  -  <%= conn.date %>,  <%= conn.time %></a></li>
                     <% }} %>
                 </ul>
             </li>
-            <li>
-                Card Games
-                <ul class="inner-list">
-                    <% for (conn of connections) {
-                        if (conn.type === 'card') { %>           <!--Creates a new list entry for each card game connection-->
-                            <li><a href="../connections/<%= conn.ID %>"><%= conn.game %>  -  <%= conn.date %> <%= conn.time %></a></li>
-                    <% }} %>
-                </ul>
-            </li>
+            <% } %>
         </ul>
     </main>
 
