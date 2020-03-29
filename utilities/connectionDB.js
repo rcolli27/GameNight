@@ -19,11 +19,11 @@ let con7 = new Connection(6, 'Home', 'Apples to Apples', det6, "2020-03-09T18:00
 let connections = [con1, con2, con3, con4, con5, con6, con7];
 
 
-var getConnections = function () {
+function getConnections() {
     return connections;
 };
 
-var getConnection = function (ID) {
+function getConnection(ID) {
     for (var con of connections) {
         if (con.getID() == ID) return con;
     }
