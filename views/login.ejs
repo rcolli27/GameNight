@@ -1,0 +1,27 @@
+﻿<!-- Include header and Nav partials -->
+<%- include('partials/header') %>
+    <body>
+        <%- include('partials/nav') %>
+        <main>
+            <h1>Welcome to Game Night!</h1>
+            <p>Please enter your username and password to sign in.</p>
+
+            <form method="post" action="/">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="username" />
+
+                <br />
+
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="password" />
+
+                <br />
+
+                <button type="submit">Log in</button>
+            </form>
+        </main>
+
+        <%- include('partials/footer') %>
+
+    </body>
+</html>
