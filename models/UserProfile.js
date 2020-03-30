@@ -23,12 +23,11 @@ class UserProfile {
 
     removeConnection(connection) {
         for (let i = 0; i < userConnections.length; i++) {
-            if (userConnections.getConnection().getID() == connection.getConnection().getID()) {
+            if (userConnections[i].getConnection().getID() == connection.getID()) {
                 this.userConnections.splice(i, 1);
-                return true;        //removed the connection
+                return this.userConnections;        //removed the connection
             }
         }
-        return false;               //failed to find the connection to remove
     }
 
     updateRSVP(connection, rsvp) {

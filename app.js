@@ -14,8 +14,10 @@ app.use('*/assets', express.static('assets'));
 
 let connections = require('./controllers/Connections');
 let userController = require('./controllers/UserController');
+let savedController = require('./controllers/SavedConnections');
 
 app.use('/connections', connections);
+app.use('/savedConnections', savedController);
 app.use('/login', userController);
 
 app.get('/', function (req, res) {

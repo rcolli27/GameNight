@@ -7,14 +7,14 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var UserDB = require('../utilities/UserDB');
 
-router.get('/logout', function (req, res) {
+router.get('/logout', function (req, res) {         //log out the user
     req.session.destroy();
     res.redirect('/');
 });
 
 
-router.post('/', function (req, res) {
-    req.session.user = UserDB.user;
+router.post('/', function (req, res) {               //log in the user
+    req.session.user = UserDB;
     res.redirect('/');
 });
 

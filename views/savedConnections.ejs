@@ -4,7 +4,7 @@
     <%- include('partials/nav') %>
 
     <main>
-        <h1>*user*'s Connnections</h1>
+        <h1><%=user.user.first %> <%= user.user.last %> Connnections</h1>
         <table class="connections-table">
             <tr>
                 <th>Connection</th>
@@ -12,18 +12,14 @@
                 <th>Going?</th>
                 <th></th>
             </tr>
+            <% for(conn of user.userConnections) { %>
             <tr>
-                <td>*Event one title*</td>
-                <td>*Event one category*</td>
-                <td>*Event one going-status*</td>
+                <td><%= conn.connection.game %></td>
+                <td><%= conn.connection.type %></td>
+                <td><%= conn.rsvp %></td>
                 <td><button class="update-button">Update</button><button class="delete-button">Delete</button></td>
             </tr>
-            <tr>
-                <td>*Event two title*</td>
-                <td>*Event two category*</td>
-                <td>*Event two going-status*</td>
-                <td><button class="update-button">Update</button><button class="delete-button">Delete</button></td>
-            </tr>
+            <% } %>
         </table>
     </main>
 

@@ -6,7 +6,7 @@
             <li>
                 <ul class="nav-ul upper">
                     <li class="nav-left">
-                        <span class="nav-user"><% if(user) { %><%= user.first%> <%=user.last%> <%}%> </span>
+                        <span class="nav-user"><% if(user) { %><%= user.user.first%> <%=user.user.last%> <%}%> </span>
                     </li>
                     <% if(!user) { %>     <!-- If the user is logged out, show this-->
                     <li class="nav-right">
