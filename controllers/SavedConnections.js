@@ -15,37 +15,67 @@ router.get('/', function (req, res) {
 
 
 router.post('/yes', function (req, res) {
+    if (req.session.user) {
+        var profile = UserDB();
+        var conn = req.session.conn;
+        profile.addConnection(conn, "yes");
 
-    var profile = UserDB();
-    var conn = req.session.conn
-    profile.addConnection(conn, "yes");
-    
-    req.session.user = profile;
-    
-    res.render('savedConnections', { user: req.session.user });
+        req.session.user = profile;
+
+        res.render('savedConnections', { user: req.session.user });
+    } else {
+        res.redirect('/login');
+    }
 });
 
 router.post('/no', function (req, res) {
-    var profile = UserDB();
-    var conn = req.session.conn
-    profile.addConnection(conn, "no");
+    if (req.session.user) {
+        var profile = UserDB();
+        var conn = req.session.conn;
+        profile.addConnection(conn, "no");
 
-    req.session.user = profile;
+        req.session.user = profile;
 
-    res.render('savedConnections', { user: req.session.user });
+        res.render('savedConnections', { user: req.session.user });
+    } else {
+        res.redirect('/login');
+    }
 });
 
 router.post('/maybe', function (req, res) {
+    if (req.session.user) {
+        var profile = UserDB();
+        var conn = req.session.conn;
+        profile.addConnection(conn, "maybe");
+
+        req.session.user = profile;
+
+        res.render('savedConnections', { user: req.session.user });
+    } else {
+        res.redirect('/login');
+    }
+});
+
+router.post('/delete', urlencodedParser, function (req, res) {
     var profile = UserDB();
-    var conn = req.session.conn
-    profile.addConnection(conn, "maybe");
+
+    profile.removeConnection(profile.getUserConnections()[req.body.delete]);
 
     req.session.user = profile;
 
     res.render('savedConnections', { user: req.session.user });
 });
 
-router.post('')
+router.post('/update', urlencodedParser, function (req, res) {
+    var profile = UserDB();
+
+    profile.removeConnection(profile.getUserConnections()[req.body.delete]);
+
+    req.session.user = profile;
+
+    res.render('savedConnections', { user: req.session.user });
+});
+
 
 
 
