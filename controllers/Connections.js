@@ -25,6 +25,7 @@ router.get('/:id', function (req, res) {
     if (conn == -1) { //can't find the id in the available list
         res.render('connections', { connections: connections, categories: categories, user: req.session.user });
     } else {
+        req.session.conn = conn;
         res.render('connection', { conn: conn, user: req.session.user });
     }
 });

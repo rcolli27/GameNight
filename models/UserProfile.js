@@ -1,5 +1,5 @@
 var connectionDB = require("../utilities/connectionDB");
-var User = require('./user');
+var UserConnection = require('./userConnection');
 
 class UserProfile {
     constructor(user, userConnections) {
@@ -7,23 +7,20 @@ class UserProfile {
         this.userConnections = userConnections;
     }
 
-    addConnection(connection) {
+    addConnection(connection, rsvp) {
 
-        if (connectionDB.getConnection(connection.getConnection().getID()) == -1) {
-            return -1;                  //connection doesn't exist in database
-        }
-        for (conn of userConnections) {
-            if (conn.getConnection().getID() == connection.getConnection().getID()) {
+        for (conn of this.userConnections) {
+            if (conn.connection.ID == connection.ID) {
                 return 0;               //connection already exists in user's list
             }
         }
-        userConnections.push(connection);
+        this.userConnections.push(new UserConnection(connection, rsvp));
         return 1;                       //connection successfully added to the user's list
     }
 
     removeConnection(connection) {
         for (let i = 0; i < userConnections.length; i++) {
-            if (userConnections[i].getConnection().getID() == connection.getID()) {
+            if (userConnections[i].getConnection().ID == connection.ID) {
                 this.userConnections.splice(i, 1);
                 return this.userConnections;        //removed the connection
             }
@@ -32,7 +29,7 @@ class UserProfile {
 
     updateRSVP(connection, rsvp) {
         for (conn of userConnections) {
-            if (conn.getConnection().getID() == connection.getID()) {
+            if (conn.connection.ID == connection.ID) {
                 conn.setRSVP(rsvp);
                 return 1;           //successfully changed rsvp
             }
