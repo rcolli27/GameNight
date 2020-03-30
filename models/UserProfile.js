@@ -1,4 +1,5 @@
 var connectionDB = require("../utilities/connectionDB");
+var User = require('./user');
 
 class UserProfile {
     constructor(user, userConnections) {

@@ -14,7 +14,7 @@ for (conn of connections) {                     //Gets list of categories by ite
 //no parameters given
 router.get('/', function (req, res) {
     if (Object.keys(req.query).length == 0 || Object.keys(req.query).length > 1) { //No parameter or invalid number of parameters
-        res.render('connections', { connections: connections, categories: categories });
+        res.render('connections', { connections: connections, categories: categories, user: req.session.user });
     } else {
          
     }
@@ -23,9 +23,9 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
     let conn = Connection.getConnection(req.params.id);
     if (conn == -1) { //can't find the id in the available list
-        res.render('connections', { connections: connections, categories: categories });
+        res.render('connections', { connections: connections, categories: categories, user: req.session.user });
     } else {
-        res.render('connection', { conn: conn });
+        res.render('connection', { conn: conn, user: req.session.user });
     }
 });
 

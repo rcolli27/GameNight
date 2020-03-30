@@ -1,41 +1,54 @@
 var express = require('express');
 var app = express();
 
+//session handling
+var session = require("express-session");
+var cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
+app.use(session({ secret: "nbad session secret" }));
+
 app.set('view engine', 'ejs');
 
 app.use('*/assets', express.static('assets'));
 
-let connections = require('./controllers/Connections.js');
+let connections = require('./controllers/Connections');
+let userController = require('./controllers/UserController');
 
 app.use('/connections', connections);
+app.use('/login', userController);
 
 app.get('/', function (req, res) {
-    res.render('index');
+    res.render('index', {user: req.session.user});
 });
 
 app.get('/about', function (req, res) {
-    res.render('about');
+    res.render('about', { user: req.session.user });
 });
 
 app.get('/newConnection', function (req, res) {
-    res.render('newConnection');
+    res.render('newConnection', { user: req.session.user });
 });
 
 app.get('/contact', function (req, res) {
-    res.render('contact');
+    res.render('contact', { user: req.session.user });
 });
 
 app.get('/savedConnections', function (req, res) {
-    res.render('savedConnections');
+    res.render('savedConnections', { user: req.session.user });
+});
+
+app.get('/login', function (req, res) {
+    res.render('login', { user: req.session.user });
 });
 
 app.post('/savedConnections', function (req, res) {
-    res.render('savedConnections');
+    res.render('savedConnections', { user: req.session.user });
 });
 
 app.post('/newConnection', function (req, res) {
-    res.render('newConnection');
+    res.render('newConnection', { user: req.session.user });
 });
 
 app.listen(8080, '127.0.0.1');
-console.log('listening');
+console.log('listening on 127.0.0.1:8080');
