@@ -8,12 +8,21 @@
                     <li class="nav-left">
                         <span class="nav-user"><% if(user) { %><%= user.first%> <%=user.last%> <%}%> </span>
                     </li>
+                    <% if(!user) { %>     <!-- If the user is logged out, show this-->
                     <li class="nav-right">
-                        <a class="nav-a" href="/savedConnections">Sign up</a>
+                        <a class="nav-a" href="/login">Sign up</a>
                     </li>
                     <li class="nav-right">
                         <a class="nav-a" href="/login">Login</a>
                     </li>
+                    <% } else { %>      <!-- If the user is logged in, show this-->
+                    <li class="nav-right">
+                        <a class="nav-a" href="/login/logout">Log out</a>
+                    </li>
+                    <li class="nav-right">
+                        <a class="nav-a" href="/savedConnections">My connections</a> 
+                    </li>
+                    <% } %>
                     <li class="nav-right">
                         <a class="nav-a" href="/newConnection">Start a New Connection</a>
                     </li>

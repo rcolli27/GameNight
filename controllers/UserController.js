@@ -7,9 +7,16 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 var UserDB = require('../utilities/UserDB');
 
+router.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.redirect('/');
+});
+
+
 router.post('/', function (req, res) {
     req.session.user = UserDB.user;
     res.redirect('/');
 });
+
 
 module.exports = router;
