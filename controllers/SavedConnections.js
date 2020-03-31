@@ -18,7 +18,13 @@ router.post('/yes', function (req, res) {
     if (req.session.user) {
         var profile = UserDB();
         var conn = req.session.conn;
-        profile.addConnection(conn, "yes");
+
+        if (req.session.update) {
+            profile.updateRSVP(conn, "yes");
+            req.session.update = false;
+        } else {
+            profile.addConnection(conn, "yes");
+        }
 
         req.session.user = profile;
 
@@ -32,7 +38,13 @@ router.post('/no', function (req, res) {
     if (req.session.user) {
         var profile = UserDB();
         var conn = req.session.conn;
-        profile.addConnection(conn, "no");
+
+        if (req.session.update) {
+            profile.updateRSVP(conn, "no");
+            req.session.update = false;
+        } else {
+            profile.addConnection(conn, "no");
+        }
 
         req.session.user = profile;
 
@@ -46,7 +58,13 @@ router.post('/maybe', function (req, res) {
     if (req.session.user) {
         var profile = UserDB();
         var conn = req.session.conn;
-        profile.addConnection(conn, "maybe");
+
+        if (req.session.update) {
+            profile.updateRSVP(conn, "maybe");
+            req.session.update = false;
+        } else {
+            profile.addConnection(conn, "maybe");
+        }
 
         req.session.user = profile;
 
@@ -59,7 +77,7 @@ router.post('/maybe', function (req, res) {
 router.post('/delete', urlencodedParser, function (req, res) {
     var profile = UserDB();
 
-    profile.removeConnection(profile.getUserConnections()[req.body.delete]);
+    profile.removeConnection(profile.getUserConnections()[req.body.delete - 1]);
 
     req.session.user = profile;
 
@@ -67,13 +85,17 @@ router.post('/delete', urlencodedParser, function (req, res) {
 });
 
 router.post('/update', urlencodedParser, function (req, res) {
+
     var profile = UserDB();
 
-    profile.removeConnection(profile.getUserConnections()[req.body.delete]);
+    let conn = profile.getUserConnections()[req.body.update - 1];
 
-    req.session.user = profile;
+    req.session.update = true;
+    let id = conn.connection.ID;
 
-    res.render('savedConnections', { user: req.session.user });
+    let url = "/connections/" + id;
+
+    res.redirect(url);
 });
 
 

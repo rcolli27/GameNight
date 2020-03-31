@@ -28,7 +28,7 @@ class UserProfile {
     }
 
     updateRSVP(connection, rsvp) {
-        for (conn of userConnections) {
+        for (conn of this.userConnections) {
             if (conn.connection.ID == connection.ID) {
                 conn.setRSVP(rsvp);
                 return 1;           //successfully changed rsvp

@@ -12,8 +12,11 @@ router.get('/logout', function (req, res) {         //log out the user
     res.redirect('/');
 });
 
+router.get('/', function (req, res) {               //load log in page
+    res.render('login', {user: req.session.user});
+});
 
-router.post('/', function (req, res) {               //log in the user
+router.post('/', function (req, res) {              //log in the user
     req.session.user = UserDB();
     res.redirect('/');
 });

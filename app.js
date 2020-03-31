@@ -36,14 +36,6 @@ app.get('/contact', function (req, res) {
     res.render('contact', { user: req.session.user });
 });
 
-app.get('/savedConnections', function (req, res) {
-    res.render('savedConnections', { user: req.session.user });
-});
-
-app.get('/login', function (req, res) {
-    res.render('login', { user: req.session.user });
-});
-
 app.post('/savedConnections', function (req, res) {
     res.render('savedConnections', { user: req.session.user });
 });

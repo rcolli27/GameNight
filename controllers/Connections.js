@@ -21,10 +21,14 @@ router.get('/', function (req, res) {
 });
 
 router.get('/:id', function (req, res) {
+    console.log(req.params.id);
     let conn = Connection.getConnection(req.params.id);
+    console.log(conn);
     if (conn == -1) { //can't find the id in the available list
+        console.log("Couldn't find");
         res.render('connections', { connections: connections, categories: categories, user: req.session.user });
     } else {
+        console.log("found");
         req.session.conn = conn;
         res.render('connection', { conn: conn, user: req.session.user });
     }
