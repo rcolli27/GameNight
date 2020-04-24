@@ -40,7 +40,7 @@ function getConnections() {   //Finds all connections from the database and retu
 
             let connections = [];
             data.forEach((connection) => {      //converts the JSON object to an array and creates new connection objects to attribute the data as a connection
-                let connectionObj = new Connection(connection._id, connection.type, connection.game, connection.details, connection.time, connection.location);
+                let connectionObj = new Connection(connection._id, connection.type, connection.game, connection.details, connection.time, connection.location, connection.userID);
                 connections.push(connectionObj);
             });
             resolve(connections);
