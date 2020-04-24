@@ -54,7 +54,7 @@ async function getConnection(ID) {  //Find a specific connection from the databa
     return new Promise((resolve, reject) => {
         connectionModel.find({ _id: ID })
             .then((data) => {
-                let connectionObj = new Connection(connection._id, connection.type, connection.game, connection.details, connection.time, connection.location);
+                let connectionObj = new Connection(data._id, data.type, data.game, data.details, data.time, data.location);
             
                 resolve(connectionObj);
             })
