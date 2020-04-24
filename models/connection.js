@@ -1,5 +1,5 @@
 class connection {
-    constructor(ID, type, game, details, date, location) {
+    constructor(ID, type, game, details, date, location, userID) {
         this.ID = ID;
         this.type = type;
         this.game = game;
@@ -21,6 +21,7 @@ class connection {
             this.time = temptime[0] - 12 + ':' + temptime[1] + 'PM';
         }
         this.location = location;
+        this.userID = userID;
     }
     getID() {
         return this.ID;
@@ -43,6 +44,9 @@ class connection {
     getLocation() {
         return this.location;
     }
+    getUserID() {
+        return this.userID;
+    }
 
     setID(ID) {
         this.ID = ID;
@@ -64,6 +68,9 @@ class connection {
     }
     setLocation(location) {
         this.location = location;
+    }
+    setUserID(userID) {
+        this.userID = userID;
     }
 }
 
