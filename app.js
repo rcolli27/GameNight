@@ -9,7 +9,7 @@ app.use(cookieParser());
 app.use(session({ secret: "nbad session secret" }));
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/Courses', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/GameNight', { useNewUrlParser: true });
 
 app.set('view engine', 'ejs');
 
