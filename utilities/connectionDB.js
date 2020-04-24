@@ -66,5 +66,6 @@ async function getConnection(ID) {  //Find a specific connection from the databa
 
 module.exports = {
     getConnections: getConnections,
-    getConnection: getConnection
+    getConnection: getConnection,
+    connectionModel: connectionModel
 };
