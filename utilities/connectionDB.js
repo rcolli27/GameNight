@@ -30,7 +30,7 @@ var connectionSchema = new mongoose.Schema({
     location: String
 });
 
-let connectionModel = mongoose.model("connections", connectionSchema)
+let connectionModel = mongoose.model("Connections", connectionSchema)
 
 async function getConnections() {   //Finds all connections from the database and returns an array of the objects
     return new Promise((resolve, reject) => {
