@@ -9,7 +9,7 @@ var userProfileSchema = new mongoose.Schema({
     userID: Number,
     connID: Number,
     rsvp: String
-});
+}, {collection: "UserProfiles"});
 
 let userProfileModel = mongoose.model("UserProfiles", userProfileSchema);
 

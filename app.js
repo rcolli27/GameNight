@@ -9,7 +9,7 @@ app.use(cookieParser());
 app.use(session({ secret: "nbad session secret" }));
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/GameNight', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/GameNight', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.set('view engine', 'ejs');
 
@@ -20,6 +20,7 @@ let userController = require('./controllers/UserController');
 let savedController = require('./controllers/SavedConnections');
 
 app.use('/connections', connections);
+app.use('/newConnection/post', connections);
 app.use('/savedConnections', savedController);
 app.use('/login', userController);
 

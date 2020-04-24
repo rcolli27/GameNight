@@ -29,21 +29,25 @@ var connectionSchema = new mongoose.Schema({
     time: String,
     location: String,
     userID: Number
-});
+}, { collection: "Connections" });
 
 let connectionModel = mongoose.model("Connections", connectionSchema)
 
 async function getConnections() {   //Finds all connections from the database and returns an array of the objects
     return new Promise((resolve, reject) => {
         connectionModel.find({}).then((data) => {
+            console.log(connectionModel.Connections);
             console.log("fetched connections");
 
             let connections = [];
             data.forEach((connection) => {      //converts the JSON object to an array and creates new connection objects to attribute the data as a connection
                 let connectionObj = new Connection(connection._id, connection.type, connection.game, connection.details, connection.time, connection.location);
                 connections.push(connectionObj);
+                console.log("Made it in");
             });
+            console.log("Here");
             resolve(connections);
+            console.log("All the way");
         })
             .catch((err) => {
                 return reject(err);

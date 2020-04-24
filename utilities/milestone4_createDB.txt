@@ -1,3 +1,5 @@
+--Copy/Paste the following lines of code into a Mongo Terminal to set up the initial state of the database.
+
 use GameNight;
 db.dropDatabase();
 
@@ -9,14 +11,15 @@ db.Users.insertMany([{_id: 1, first: "Ryan", last: "Collins", email: "rcolli27@u
 , last: "Niner", email: "nniner@uncc.edu"}, {_id: 3, first: "Salt", last: "Pepper", email: "speppe@uncc.edu"}]);
 
 db.Connections.insertMany([{_id: 1, type: "Board", game: "Scrabble", details: "Scrabble with friends!", 
-time: "2020-06-07T13:00", location: "Woodward 130", 1}, {_id: 2, type: "Board", game: "Monopoly", details: 
-"Monopoly with friends!", time: "2020-06-08T13:00", location: "Woodward 130", 1}, {_id: 3, type: "Board", 
+time: "2020-06-07T13:00", location: "Woodward 130", userID: 1}, {_id: 2, type: "Board", game: "Monopoly", details: 
+"Monopoly with friends!", time: "2020-06-08T13:00", location: "Woodward 130", userID: 1}, {_id: 3, type: "Board", 
 game: "The Game of Life", details: "The Game of Life with friends!", time: "2020-06-09T13:00", location: 
-"Woodward 130", 3}, {_id: 4, type: "Card", game: "Poker", details: "Poker with friends!", time: 
-"2020-06-07T18:00", location: "Woodward 130", 3}, {_id: 5, type: "Card", game: "Black Jack", details: 
-"Black Jack with friends!", time: "2020-06-08T18:00", location: "Woodward 130", 3}, {_id: 6, type: "Card", 
+"Woodward 130", userID: 3}, {_id: 4, type: "Card", game: "Poker", details: "Poker with friends!", time: 
+"2020-06-07T18:00", location: "Woodward 130", userID: 3}, {_id: 5, type: "Card", game: "Black Jack", details: 
+"Black Jack with friends!", time: "2020-06-08T18:00", location: "Woodward 130", userID: 3}, {_id: 6, type: "Card", 
 game: "Apples to Apples", details: "Apples to Apples with friends!", time: "2020-03-07T13:00", location: 
-"Woodward 130", 3}]);
+"Woodward 130", userID: 3}]);
 
 db.UserProfiles.insertMany([{userID: 1, connID: 1, rsvp: "yes"}, {userID: 1, connID: 2, rsvp: "yes"}, 
-{userID: 2, connID: 1, rsvp: "yes"}, {userID: 2, connID: 2, rsvp: "maybe"}]);
+{userID: 2, connID: 1, rsvp: "yes"}, {userID: 2, connID: 2, rsvp: "maybe"}, {userID: 3, connID: 3, rsvp: "yes"},
+{userID: 3, connID: 4, rsvp: "yes"}, {userID: 3, connID: 5, rsvp: "yes"}, {userID: 3, connID: 6, rsvp: "yes"}]);

@@ -17,7 +17,7 @@ var userSchema = new mongoose.Schema({
     first: String,
     last: String,
     email: String
-});
+}, {collection: "Users"});
 
 let userModel = mongoose.model("Users", userSchema);
 
