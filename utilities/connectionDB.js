@@ -27,7 +27,8 @@ var connectionSchema = new mongoose.Schema({
     game: String,
     details: String,
     time: String,
-    location: String
+    location: String,
+    userID: Number
 });
 
 let connectionModel = mongoose.model("Connections", connectionSchema)
