@@ -1,5 +1,5 @@
 var Connection = require('../models/connection');
-
+/*
 let det1 = "Scrabble with friends!";
 let det2 = "Monopoly with friends!";
 let det3 = "The Game of Life with friends!";
@@ -17,17 +17,51 @@ let con7 = new Connection(7, 'Home', 'Apples to Apples', det6, "2020-03-09T18:00
 
 
 let connections = [con1, con2, con3, con4, con5, con6, con7];
+*/ // No longer needed because of MongoDB
 
+var mongoose = require("mongoose");
 
-function getConnections() {
-    return connections;
+var connectionSchema = new mongoose.Schema({
+    _id: Number,
+    type: String,
+    game: String,
+    details: String,
+    time: String,
+    location: String
+});
+
+let connectionModel = mongoose.model("connections", connectionSchema)
+
+async function getConnections() {   //Finds all connections from the database and returns an array of the objects
+    return new Promise((resolve, reject) => {
+        connectionModel.find({}).then((data) => {
+            console.log("fetched connections");
+
+            let connections = [];
+            data.forEach((connection) => {      //converts the JSON object to an array and creates new connection objects to attribute the data as a connection
+                let connectionObj = new Connection(connection._id, connection.type, connection.game, connection.details, connection.time, connection.location);
+                connections.push(connectionObj);
+            });
+            resolve(connections);
+        })
+            .catch((err) => {
+                return reject(err);
+            });
+    });
 };
 
-function getConnection(ID) {
-    for (var con of connections) {
-        if (con.getID() == ID) return con;
-    }
-    return -1;
+async function getConnection(ID) {  //Find a specific connection from the database and return it
+    return new Promise((resolve, reject) => {
+        connectionModel.find({ _id: ID })
+            .then((data) => {
+                let connectionObj = new Connection(connection._id, connection.type, connection.game, connection.details, connection.time, connection.location);
+            
+                resolve(connectionObj);
+            })
+            .catch((err) => {
+                return reject(err);
+            });
+    });
 };
 
 module.exports = {

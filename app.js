@@ -8,6 +8,9 @@ var cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(session({ secret: "nbad session secret" }));
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/Courses', { useNewUrlParser: true });
+
 app.set('view engine', 'ejs');
 
 app.use('*/assets', express.static('assets'));
