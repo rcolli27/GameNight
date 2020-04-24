@@ -2,6 +2,7 @@ var UserProfile = require('../models/UserProfile');
 var Connection = require('../models/connection');
 var User = require('../models/User');
 var UserConnection = require('../models/UserConnection');
+var connectionDB = require("./connectionDB");
 
 let mongoose = require("mongoose");
 
@@ -18,14 +19,18 @@ class UserProfileDB {
     getUserProfile(userID) {
         return new Promise((resolve, reject) => {       //return all userConnection objects associated 
             userProfileModel.find({ userID: userID })
-                .then((data) => {
+                .then(async (data) => {
                     let userConns = [];
 
-                    data.forEach((connection) => {      //converts the JSON object to an array and creates new connection objects to attribute the data as a connection
-                        let connectionObj = new Connection(connection._id, connection.type, connection.game, connection.details, connection.time, connection.location);
+                    for (let connection of data) {
+                        console.log("Here:");
+                        let conn = await connectionDB.getConnection(connection.connID);
+                        console.log("Over here");
+                        let connectionObj = new UserConnection(conn, connection.rsvp);
                         userConns.push(connectionObj);
-                    });
-
+                        console.log("here");
+                    }
+                    console.log("out");
                     resolve(userConns);
                 })
                 .catch((err) => {
@@ -68,3 +73,5 @@ class UserProfileDB {
     }
 
 }
+
+module.exports = UserProfileDB;

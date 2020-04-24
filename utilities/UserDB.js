@@ -21,11 +21,11 @@ var userSchema = new mongoose.Schema({
 
 let userModel = mongoose.model("Users", userSchema);
 
-async function getUser(username) {       //Finds the User given the username input
+function getUser(username) {       //Finds the User given the username input
     return new Promise((resolve, reject) => {
         userModel.find({ email: username })     // Search Users collection for the email attributed with the user
             .then((data) => {
-                let userObj = new User(data._id, data.first, data.last, data.email);
+                let userObj = new User(data[0]._id, data[0].first, data[0].last, data[0].email);
 
                 resolve(userObj);
             })
