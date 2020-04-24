@@ -7,21 +7,11 @@
     <form id="create-event" method="post" action="/newConnection">
         <table id="create-event-table">
             <tr>
-                <td></td> <!--leave empty space-->
+                <th>
+                    <label for="type">Type</label>
+                </th>
                 <td>
-                    <label for="card">Card Game</label>
-                </td>
-                <td>
-                    <label for="board">Board Game</label>
-                </td>
-            </tr>
-            <tr id="radio-row">
-                <td></td> <!--Leave empty space-->
-                <td>
-                    <input type="radio" name="game-type" id="card" value="card" />
-                </td>
-                <td>
-                    <input type="radio" name="game-type" id="board" value="board" />
+                    <input type="text" id="type" required placeholder="What Type of game?" />
                 </td>
             </tr>
             <tr>
