@@ -45,7 +45,8 @@ app.post('/savedConnections', function (req, res) {
 });
 
 app.post('/newConnection', function (req, res) {
-    res.render('newConnection', { user: req.session.user });
+    if (req.session.user) res.render('newConnection', { user: req.session.user });
+    else res.render('login', { user: req.session.user });
 });
 
 app.listen(8080, '127.0.0.1');

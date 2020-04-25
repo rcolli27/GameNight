@@ -20,12 +20,7 @@ router.post('/yes', async function (req, res) {
     if (req.session.user) {
         var conn = req.session.conn;
 
-        if (req.session.update) {
-            await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "yes");
-            req.session.update = false;
-        } else {
-            await userProfileDB.addRSVP(req.session.user.user.userID, conn.ID, "yes");
-        }
+        await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "yes");
 
         let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
 
@@ -42,12 +37,7 @@ router.post('/no', async function (req, res) {
     if (req.session.user) {
         var conn = req.session.conn;
 
-        if (req.session.update) {
-            await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "no");
-            req.session.update = false;
-        } else {
-            await userProfileDB.addRSVP(req.session.user.user.userID, conn.ID, "no");
-        }
+        await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "no");
 
         let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
 
@@ -64,12 +54,7 @@ router.post('/maybe', async function (req, res) {
     if (req.session.user) {
         var conn = req.session.conn;
 
-        if (req.session.update) {
-            await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "maybe");
-            req.session.update = false;
-        } else {
-            await userProfileDB.addRSVP(req.session.user.user.userID, conn.ID, "maybe");
-        }
+        await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "maybe");
 
         let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
 
@@ -96,7 +81,6 @@ router.post('/update', urlencodedParser, async function (req, res) {
 
     let conn = await connectionDB.getConnection(req.body.update);
 
-    req.session.update = true;
     let id = conn.ID;
 
     let url = "/connections/" + id;

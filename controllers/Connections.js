@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var Connection = require('../utilities/connectionDB');
+var UserProfileDB = require("../utilities/UserProfileDB");
+var userProfileDB = new UserProfileDB();
 
 
 
@@ -22,16 +24,18 @@ router.get('/', async function (req, res) {
 });
 
 router.get('/:id', async function (req, res) {
-    console.log(req.params.id);
+    
     let conn = await Connection.getConnection(req.params.id);
-    console.log(conn);
+    
     if (conn == -1) { //can't find the id in the available list
-        console.log("Couldn't find");
         res.render('connections', { connections: connections, categories: categories, user: req.session.user });
     } else {
-        console.log("found");
+
+        let count = await userProfileDB.getCountGoing(conn.ID);
+        console.log(count);
+
         req.session.conn = conn;
-        res.render('connection', { conn: conn, user: req.session.user });
+        res.render('connection', { conn: conn, user: req.session.user, count: count });
     }
 });
 

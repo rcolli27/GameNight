@@ -23,14 +23,12 @@ class UserProfileDB {
                     let userConns = [];
 
                     for (let connection of data) {
-                        console.log("Here:");
                         let conn = await connectionDB.getConnection(connection.connID);
-                        console.log("Over here");
+                        
                         let connectionObj = new UserConnection(conn, connection.rsvp);
                         userConns.push(connectionObj);
-                        console.log("here");
+                        
                     }
-                    console.log("out");
                     resolve(userConns);
                 })
                 .catch((err) => {
@@ -39,28 +37,26 @@ class UserProfileDB {
         });
     }
 
-    addRSVP(userID, connID, rsvp) {
-        return new Promise((resolve, reject) => {       //create new userConnection in the UserProfiles collection
-            let userConn = new userProfileModel({           //create new document based off the model
-                userID: userID,
-                connID: connID,
-                rsvp: rsvp
-            });
-
-            userConn.save(function (err, data) {            //save the document to the collection
-                if (data) resolve(data);
-                else return reject(err);
-            });
+    getCountGoing(connID) {
+        return new Promise((resolve, reject) => {       //return all userConnection objects associated 
+            userProfileModel.countDocuments({ connID: connID, rsvp: "yes" })
+                .then((data) => {
+                    resolve(data);
+                })
+                .catch((err) => {
+                    return reject(err);
+                });
         });
     }
 
     updateRSVP(userID, connID, rsvp) {
-        return new Promise((resolve, reject) => {       //update userConnection in the UserProfiles collection to change the rsvp
+        return new Promise((resolve, reject) => {       //update or create userConnection in the UserProfiles collection to change the rsvp
             userProfileModel.findOneAndUpdate({             //userID and connID make a primary key
                 userID: userID,
                 connID: connID
             },
                 { $set: { rsvp: rsvp } },                   //update rsvp
+                { upsert: true },
                 function (err, data) {
                     resolve(data);
                 }
