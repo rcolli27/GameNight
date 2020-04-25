@@ -12,7 +12,6 @@
                 <th>Going?</th>
                 <th></th>
             </tr>
-            <% var counter = 1; %>
             <% for(conn of user.userConnections) { %>
             <tr>
                 <td><%= conn.connection.game %></td>
@@ -20,12 +19,12 @@
                 <td><%= conn.rsvp %></td>
                 <td>
                     <form method="post"> 
-                        <button formaction="/savedConnections/update" value="<%=counter%>" class="update-button" name="update">Update</button>
-                        <button formaction="/savedConnections/delete" value="<%=counter%>" class="delete-button" name="delete">Delete</button>
+                        <button formaction="/savedConnections/update" value="<%=conn.connection.ID%>" class="update-button" name="update">Update</button>
+                        <button formaction="/savedConnections/delete" value="<%=conn.connection.ID%>" class="delete-button" name="delete">Delete</button>
                     </form>
                 </td>
             </tr>
-            <% counter++;} %>
+            <% } %>
         </table>
     </main>
 

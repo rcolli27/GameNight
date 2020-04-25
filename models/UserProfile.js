@@ -20,7 +20,7 @@ class UserProfile {
 
     removeConnection(connection) {
         for (let i = 0; i < this.userConnections.length; i++) {
-            if (this.userConnections[i].getConnection().ID == connection.connection.ID) {
+            if (this.userConnections[i].connection.ID == connection.connection.ID) {
                 this.userConnections.splice(i, 1);
                 return this.userConnections;        //removed the connection
             }

@@ -24,10 +24,10 @@ router.get('/', function (req, res) {               //load log in page
 router.post('/', urlencodedParser, async function (req, res) {              //log in the user
 
     let user;
-    if (!req.body.username) user = await UserDB("rcolli27@uncc.edu");
+    if (!req.body.username) user = await UserDB("rcolli27@uncc.edu");       //use rcolli27@uncc.edu as default or the passed in username, then find from database on email
     else user = await UserDB(req.body.username);
 
-    let connections = await userProfileDB.getUserProfile(user.userID);
+    let connections = await userProfileDB.getUserProfile(user.userID);      //given userID, find all userConnections
 
     console.log(user);
     console.log(connections);

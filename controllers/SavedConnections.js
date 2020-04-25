@@ -8,6 +8,8 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var Connection = require('../models/connection');
 var UserProfile = require('../models/UserProfile');
 var UserDB = require('../utilities/UserDB');
+var UserProfileDB = require("../utilities/UserProfileDB");
+var userProfileDB = new UserProfileDB();
 
 router.get('/', function (req, res) {
     res.render('savedConnections', { user: req.session.user });
@@ -15,9 +17,12 @@ router.get('/', function (req, res) {
 
 
 router.post('/yes', function (req, res) {
+
     if (req.session.user) {
-        var profile = UserDB();
+        var profile = new UserProfile(req.session.user.user, req.session.user.userConnections);
         var conn = req.session.conn;
+
+        console.log(conn);
 
         if (req.session.update) {
             profile.updateRSVP(conn, "yes");
@@ -35,8 +40,9 @@ router.post('/yes', function (req, res) {
 });
 
 router.post('/no', function (req, res) {
+
     if (req.session.user) {
-        var profile = UserDB();
+        var profile = new UserProfile(req.session.user.user, req.session.user.userConnections);
         var conn = req.session.conn;
 
         if (req.session.update) {
@@ -55,8 +61,9 @@ router.post('/no', function (req, res) {
 });
 
 router.post('/maybe', function (req, res) {
+
     if (req.session.user) {
-        var profile = UserDB();
+        var profile = new UserProfile(req.session.user.user, req.session.user.userConnections);
         var conn = req.session.conn;
 
         if (req.session.update) {
@@ -74,19 +81,20 @@ router.post('/maybe', function (req, res) {
     }
 });
 
-router.post('/delete', urlencodedParser, function (req, res) {
-    var profile = UserDB();
+router.post('/delete', urlencodedParser, async function (req, res) {
 
-    profile.removeConnection(profile.getUserConnections()[req.body.delete - 1]);
+    userProfileDB.removeUserConnection(req.session.user.user.userID, req.body.delete);
 
-    req.session.user = profile;
+    let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
+
+    req.session.user = new UserProfile(req.session.user.user, connections);
 
     res.render('savedConnections', { user: req.session.user });
 });
 
 router.post('/update', urlencodedParser, function (req, res) {
 
-    var profile = UserDB();
+    var profile = new UserProfile(req.session.user.user, req.session.user.userConnections);
 
     let conn = profile.getUserConnections()[req.body.update - 1];
 

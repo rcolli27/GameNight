@@ -54,7 +54,7 @@ class UserProfileDB {
         });
     }
 
-    addRSVP(connID, userID, rsvp) {
+    updateRSVP(connID, userID, rsvp) {
         return new Promise((resolve, reject) => {       //update userConnection in the UserProfiles collection to change the rsvp
             userProfileModel.findOneAndUpdate({             //userID and connID make a primary key
                 userID: userID,
@@ -66,6 +66,23 @@ class UserProfileDB {
                 }
 
             )
+                .catch((err) => {
+                    return reject(err);
+                });
+        });
+    }
+
+    addConnection(connection) {
+
+    }
+
+    removeUserConnection(userID, connID) {              //remove a relationship between a user and a connection
+        return new Promise((resolve, reject) => {
+            userProfileModel.findOneAndDelete({
+                userID: userID,
+                connID: connID
+            })
+                .then(resolve())
                 .catch((err) => {
                     return reject(err);
                 });
