@@ -39,7 +39,7 @@ class UserProfileDB {
         });
     }
 
-    addRSVP(connID, userID, rsvp) {
+    addRSVP(userID, connID, rsvp) {
         return new Promise((resolve, reject) => {       //create new userConnection in the UserProfiles collection
             let userConn = new userProfileModel({           //create new document based off the model
                 userID: userID,
@@ -54,7 +54,7 @@ class UserProfileDB {
         });
     }
 
-    updateRSVP(connID, userID, rsvp) {
+    updateRSVP(userID, connID, rsvp) {
         return new Promise((resolve, reject) => {       //update userConnection in the UserProfiles collection to change the rsvp
             userProfileModel.findOneAndUpdate({             //userID and connID make a primary key
                 userID: userID,

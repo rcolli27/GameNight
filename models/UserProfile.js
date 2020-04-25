@@ -1,5 +1,6 @@
 var connectionDB = require("../utilities/connectionDB");
 var UserConnection = require('./userConnection');
+var Connection = require("./Connection");
 
 class UserProfile {
     constructor(user, userConnections) {
@@ -30,7 +31,7 @@ class UserProfile {
     updateRSVP(connection, rsvp) {
         for (conn of this.userConnections) {
             if (conn.connection.ID == connection.ID) {
-                conn.setRSVP(rsvp);
+                conn = new UserConnection(new Connection(conn.connection.ID, conn.connection.type, conn.connection.game, conn.connection.details, conn.connection.time, conn.connection.location, conn.connection.userID), rsvp);
                 return 1;           //successfully changed rsvp
             }
         }

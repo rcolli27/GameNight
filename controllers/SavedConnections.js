@@ -5,9 +5,8 @@ var router = express.Router();
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-var Connection = require('../models/connection');
 var UserProfile = require('../models/UserProfile');
-var UserDB = require('../utilities/UserDB');
+var connectionDB = require("../utilities/connectionDB");
 var UserProfileDB = require("../utilities/UserProfileDB");
 var userProfileDB = new UserProfileDB();
 
@@ -16,66 +15,67 @@ router.get('/', function (req, res) {
 })
 
 
-router.post('/yes', function (req, res) {
+router.post('/yes', async function (req, res) {
 
     if (req.session.user) {
-        var profile = new UserProfile(req.session.user.user, req.session.user.userConnections);
         var conn = req.session.conn;
 
-        console.log(conn);
-
         if (req.session.update) {
-            profile.updateRSVP(conn, "yes");
+            await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "yes");
             req.session.update = false;
         } else {
-            profile.addConnection(conn, "yes");
+            await userProfileDB.addRSVP(req.session.user.user.userID, conn.ID, "yes");
         }
 
-        req.session.user = profile;
+        let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
 
-        res.render('savedConnections', { user: req.session.user });
+        req.session.user = new UserProfile(req.session.user.user, connections);
+
+        res.redirect("/savedConnections");
     } else {
         res.redirect('/login');
     }
 });
 
-router.post('/no', function (req, res) {
+router.post('/no', async function (req, res) {
 
     if (req.session.user) {
-        var profile = new UserProfile(req.session.user.user, req.session.user.userConnections);
         var conn = req.session.conn;
 
         if (req.session.update) {
-            profile.updateRSVP(conn, "no");
+            await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "no");
             req.session.update = false;
         } else {
-            profile.addConnection(conn, "no");
+            await userProfileDB.addRSVP(req.session.user.user.userID, conn.ID, "no");
         }
 
-        req.session.user = profile;
+        let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
 
-        res.render('savedConnections', { user: req.session.user });
+        req.session.user = new UserProfile(req.session.user.user, connections);
+
+        res.redirect("/savedConnections");
     } else {
         res.redirect('/login');
     }
 });
 
-router.post('/maybe', function (req, res) {
+router.post('/maybe', async function (req, res) {
 
     if (req.session.user) {
-        var profile = new UserProfile(req.session.user.user, req.session.user.userConnections);
         var conn = req.session.conn;
 
         if (req.session.update) {
-            profile.updateRSVP(conn, "maybe");
+            await userProfileDB.updateRSVP(req.session.user.user.userID, conn.ID, "maybe");
             req.session.update = false;
         } else {
-            profile.addConnection(conn, "maybe");
+            await userProfileDB.addRSVP(req.session.user.user.userID, conn.ID, "maybe");
         }
 
-        req.session.user = profile;
+        let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
 
-        res.render('savedConnections', { user: req.session.user });
+        req.session.user = new UserProfile(req.session.user.user, connections);
+
+        res.redirect("/savedConnections");
     } else {
         res.redirect('/login');
     }
@@ -89,17 +89,15 @@ router.post('/delete', urlencodedParser, async function (req, res) {
 
     req.session.user = new UserProfile(req.session.user.user, connections);
 
-    res.render('savedConnections', { user: req.session.user });
+    res.redirect("/savedConnections");
 });
 
-router.post('/update', urlencodedParser, function (req, res) {
+router.post('/update', urlencodedParser, async function (req, res) {
 
-    var profile = new UserProfile(req.session.user.user, req.session.user.userConnections);
-
-    let conn = profile.getUserConnections()[req.body.update - 1];
+    let conn = await connectionDB.getConnection(req.body.update);
 
     req.session.update = true;
-    let id = conn.connection.ID;
+    let id = conn.ID;
 
     let url = "/connections/" + id;
 
