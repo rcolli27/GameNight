@@ -68,8 +68,19 @@ class UserProfileDB {
         });
     }
 
-    addConnection(connection) {
+    addConnection(connection, user) {
+        return new Promise((resolve, reject) => {
+            let userConn = new userProfileModel({
+                userID: user.userID,
+                connID: connection.ID,
+                rsvp: "yes"
+            });
 
+            userConn.save(function (err, data) {
+                if (data) resolve(data);
+                else return reject(err);
+            });
+        });
     }
 
     removeUserConnection(userID, connID) {              //remove a relationship between a user and a connection

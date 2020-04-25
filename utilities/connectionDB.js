@@ -26,6 +26,7 @@ var connectionSchema = new mongoose.Schema({
     type: String,
     game: String,
     details: String,
+    date: String,
     time: String,
     location: String,
     userID: Number
@@ -36,7 +37,6 @@ let connectionModel = mongoose.model("Connections", connectionSchema)
 function getConnections() {   //Finds all connections from the database and returns an array of the objects
     return new Promise((resolve, reject) => {
         connectionModel.find({}).then((data) => {
-            console.log("fetched connections");
 
             let connections = [];
             data.forEach((connection) => {      //converts the JSON object to an array and creates new connection objects to attribute the data as a connection
@@ -64,8 +64,29 @@ function getConnection(ID) {  //Find a specific connection from the database and
     });
 };
 
+function addConnection(connection, user) {
+    return new Promise((resolve, reject) => {
+        let conn = new connectionModel({
+            _id: connection.ID,
+            type: connection.type,
+            game: connection.game,
+            details: connection.details,
+            date: connection.date,
+            time: connection.time,
+            location: connection.location,
+            userID: user.userID
+        });
+
+        conn.save(function (err, data) {
+            if (data) resolve(data);
+            else return reject(err);
+        });
+    });
+}
+
 module.exports = {
     getConnections: getConnections,
     getConnection: getConnection,
-    connectionModel: connectionModel
+    connectionModel: connectionModel,
+    addConnection: addConnection
 };

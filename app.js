@@ -9,7 +9,7 @@ app.use(cookieParser());
 app.use(session({ secret: "nbad session secret" }));
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/GameNight', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost/GameNight', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 app.set('view engine', 'ejs');
 
@@ -33,20 +33,12 @@ app.get('/about', function (req, res) {
 });
 
 app.get('/newConnection', function (req, res) {
-    res.render('newConnection', { user: req.session.user });
+    if (req.session.user) res.render('newConnection', { user: req.session.user });
+    else res.redirect('/login');
 });
 
 app.get('/contact', function (req, res) {
     res.render('contact', { user: req.session.user });
-});
-
-app.post('/savedConnections', function (req, res) {
-    res.render('savedConnections', { user: req.session.user });
-});
-
-app.post('/newConnection', function (req, res) {
-    if (req.session.user) res.render('newConnection', { user: req.session.user });
-    else res.render('login', { user: req.session.user });
 });
 
 app.listen(8080, '127.0.0.1');

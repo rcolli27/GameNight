@@ -10,14 +10,14 @@ db.createCollection("UserProfiles");
 db.Users.insertMany([{_id: 1, first: "Ryan", last: "Collins", email: "rcolli27@uncc.edu"}, {_id: 2, first: "Norm"
 , last: "Niner", email: "nniner@uncc.edu"}, {_id: 3, first: "Salt", last: "Pepper", email: "speppe@uncc.edu"}]);
 
-db.Connections.insertMany([{_id: 1, type: "Board", game: "Scrabble", details: "Scrabble with friends!", 
-time: "2020-06-07T13:00", location: "Woodward 130", userID: 1}, {_id: 2, type: "Board", game: "Monopoly", details: 
-"Monopoly with friends!", time: "2020-06-08T13:00", location: "Woodward 130", userID: 1}, {_id: 3, type: "Board", 
-game: "The Game of Life", details: "The Game of Life with friends!", time: "2020-06-09T13:00", location: 
-"Woodward 130", userID: 3}, {_id: 4, type: "Card", game: "Poker", details: "Poker with friends!", time: 
-"2020-06-07T18:00", location: "Woodward 130", userID: 3}, {_id: 5, type: "Card", game: "Black Jack", details: 
-"Black Jack with friends!", time: "2020-06-08T18:00", location: "Woodward 130", userID: 3}, {_id: 6, type: "Card", 
-game: "Apples to Apples", details: "Apples to Apples with friends!", time: "2020-03-07T13:00", location: 
+db.Connections.insertMany([{_id: 1, type: "Board", game: "Scrabble", details: "Scrabble with friends!", date: "09/30/2020",
+time: "3:30PM", location: "Woodward 130", userID: 1}, {_id: 2, type: "Board", game: "Monopoly", details: 
+"Monopoly with friends!", date: "08/30/2020", time: "3:30PM", location: "Woodward 130", userID: 1}, {_id: 3, type: "Board", 
+game: "The Game of Life", details: "The Game of Life with friends!", date: "04/30/2020", time: "3:30PM", location: 
+"Woodward 130", userID: 3}, {_id: 4, type: "Card", game: "Poker", details: "Poker with friends!", date: "07/30/2020", time: "3:30PM", 
+location: "Woodward 130", userID: 3}, {_id: 5, type: "Card", game: "Black Jack", details: 
+"Black Jack with friends!", date: "06/30/2020", time: "3:30PM", location: "Woodward 130", userID: 3}, {_id: 6, type: "Card", 
+game: "Apples to Apples", details: "Apples to Apples with friends!", date: "05/30/2020", time: "3:30PM", location: 
 "Woodward 130", userID: 3}]);
 
 db.UserProfiles.insertMany([{userID: 1, connID: 1, rsvp: "yes"}, {userID: 1, connID: 2, rsvp: "yes"}, 
