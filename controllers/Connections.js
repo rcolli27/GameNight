@@ -35,7 +35,7 @@ router.get('/:id', async function (req, res) {
     let conn = await connectionDB.getConnection(req.params.id);
     
     if (conn == -1) { //can't find the id in the available list
-        res.render('connections', { connections: connections, categories: categories, user: req.session.user });
+        res.redirect('/connections');
     } else {
 
         let count = await userProfileDB.getCountGoing(conn.ID);

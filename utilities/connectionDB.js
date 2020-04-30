@@ -53,10 +53,16 @@ function getConnections() {   //Finds all connections from the database and retu
 
 function getConnection(ID) {  //Find a specific connection from the database and return it
     return new Promise((resolve, reject) => {
-        connectionModel.find({ _id: ID })
+        connectionModel.findOne({ _id: ID })
             .then((data) => {
-                let connectionObj = new Connection(data[0]._id, data[0].type, data[0].game, data[0].details, data[0].time, data[0].location, data[0].userID);
-                resolve(connectionObj);
+                console.log(data);
+                if (data == null) {     //if connection isn't found, return -1 to 
+                    resolve(-1);
+                }
+                else {
+                    let connectionObj = new Connection(data._id, data.type, data.game, data.details, data.time, data.location, data.userID);
+                    resolve(connectionObj);
+                }
             })
             .catch((err) => {
                 return reject(err);
