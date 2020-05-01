@@ -32,7 +32,6 @@ router.post('/', urlencodedParser, [check('username').isEmail(), check('password
 
         const errors = validationResult(req);
 
-        console.log(errors.errors[0]);
         if (!errors.isEmpty()) {
             if (errors.errors[0].param == 'username') {            //checks if username is the first error
                 errs.push("username must be an email address");
@@ -44,8 +43,12 @@ router.post('/', urlencodedParser, [check('username').isEmail(), check('password
         }
         let user;
 
-        if (!req.body.username) user = await UserDB("rcolli27@uncc.edu");       //use rcolli27@uncc.edu as default or the passed in username, then find from database on email
-        else user = await UserDB(req.body.username);
+        user = await UserDB(req.body.username, req.body.password);
+
+        if (user == -1) {
+            errs.push("Invalid username or password. Please try again");
+            return res.render('login', { user: req.session.user, errors: errs });
+        }
 
         let connections = await userProfileDB.getUserProfile(user.userID);      //given userID, find all userConnections
 

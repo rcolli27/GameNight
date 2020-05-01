@@ -26,9 +26,10 @@ function getUser(username, password) {       //Finds the User given the username
     return new Promise((resolve, reject) => {
         userModel.findOne({ email: username, password: password })     // Search Users collection for the email attributed with the user
             .then((data) => {
-                if(data == null)        //if username/password combo doesn't exist
-
-                let userObj = new User(data[0]._id, data[0].first, data[0].last, data[0].email);
+                if (data == null) {       //if username/password combo doesn't exist
+                    resolve(-1);
+                }
+                let userObj = new User(data._id, data.first, data.last, data.email, data.password);
 
                 resolve(userObj);
             })
