@@ -57,8 +57,6 @@ router.post('/', urlencodedParser,
 
         const errors = validationResult(req);
 
-        console.log(errors);
-
         if (!errors.isEmpty()) {
 
             for (let error of errors.errors) {
