@@ -55,7 +55,7 @@ function getConnection(ID) {  //Find a specific connection from the database and
     return new Promise((resolve, reject) => {
         connectionModel.findOne({ _id: ID })
             .then((data) => {
-                if (data == null) {     //if connection isn't found, return -1 to 
+                if (data == null) {     //if connection isn't found, return -1
                     resolve(-1);
                 }
                 else {
