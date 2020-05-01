@@ -33,7 +33,7 @@ app.get('/about', function (req, res) {
 });
 
 app.get('/newConnection', function (req, res) {
-    if (req.session.user) res.render('newConnection', { user: req.session.user });
+    if (req.session.user) res.render('newConnection', { user: req.session.user, errors: null });
     else res.redirect('/login');
 });
 

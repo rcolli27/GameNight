@@ -5,6 +5,8 @@ var router = express.Router();
 var bodyParser = require("body-parser");
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+const { check, validationResult } = require('express-validator');
+
 var Connection = require("../models/Connection");
 var UserProfile = require("../models/UserProfile");
 
@@ -45,44 +47,69 @@ router.get('/:id', async function (req, res) {
     }
 });
 
-router.post('/', urlencodedParser, async function (req, res) {
-    //let con1 = new Connection(1, 'Board', 'Scrabble', det1, "2020-03-07T13:00", "Woodward 120");
+router.post('/', urlencodedParser,
+    [check('type').matches(/^[A-Za-z0-9 ]+$/i).trim().escape(), check('game').matches(/^[A-Za-z0-9 ]+$/i).trim().escape(),
+    check('details').matches(/^[A-Za-z0-9 ]+$/i).trim().escape(), check('location').matches(/^[A-Za-z0-9 ]+$/i).trim().escape(),],
+    async function (req, res) {
+    //Validation
 
-    let count = await connectionDB.connectionModel.countDocuments();
+        let errs = [];
+
+        const errors = validationResult(req);
+
+        console.log(errors);
+
+        if (!errors.isEmpty()) {
+
+            for (let error of errors.errors) {
+                if (error.param == 'type') {
+                    errs.push("Type must only contain letters, numbers, and spaces.");
+                } else if (error.param == 'game') {
+                    errs.push("Game must only contain letters, numbers, and spaces.");
+                } else if (error.param == 'details') {
+                    errs.push("Details must only contain letters, numbers, and spaces.");
+                } else if (error.param == 'location') {
+                    errs.push("Location must only contain letters, numbers, and spaces.");
+                } else errs.push(error.msg);
+            }
+            return res.render('newConnection', { user: req.session.user, errors: errs });
+        }
+
+        let count = await connectionDB.connectionModel.countDocuments();
 
 
-    //split datetime to show date then time                                                         //Ugly code that allows for parsing of date and time from the date time input
-    let datetime = req.body.time.split("T");
-    let tempdate = datetime[0].split("-");
-    let date = tempdate[1] + "/" + tempdate[2] + "/" + tempdate[0];
+        //split datetime to show date then time                                                         
+        //Ugly code that allows for parsing of date and time from the date time input
+        let datetime = req.body.time.split("T");
+        let tempdate = datetime[0].split("-");
+        let date = tempdate[1] + "/" + tempdate[2] + "/" + tempdate[0];
 
-    //split time to show hour and minute to swap from 24hr to 12hr clock
-    let temptime = datetime[1].split(":");
-    let time;
-    if (parseInt(temptime[0]) == 0) {
-        time = '12:' + temptime[1] + 'AM';
-    } else if (parseInt(temptime[0]) > 0 && parseInt(temptime[0]) < 12) {
-        time = datetime[1] + 'AM'
-    }
-    else if (parseInt(temptime[0]) == 12) {
-        time = datetime[1] + 'PM';
-    } else {
-        time = temptime[0] - 12 + ':' + temptime[1] + 'PM';
-    }
+        //split time to show hour and minute to swap from 24hr to 12hr clock
+        let temptime = datetime[1].split(":");
+        let time;
+        if (parseInt(temptime[0]) == 0) {
+            time = '12:' + temptime[1] + 'AM';
+        } else if (parseInt(temptime[0]) > 0 && parseInt(temptime[0]) < 12) {
+            time = datetime[1] + 'AM'
+        }
+        else if (parseInt(temptime[0]) == 12) {
+            time = datetime[1] + 'PM';
+        } else {
+            time = temptime[0] - 12 + ':' + temptime[1] + 'PM';
+        }
 
+        //dumb variable names but oh well, it works
+        let conn = new Connection((count + 1), req.body.type, req.body.game, req.body.details, date, time, req.body.location, req.session.user.user.userID);
 
-    //dumb variable names but oh well, it works
-    let conn = new Connection((count + 1), req.body.type, req.body.game, req.body.details, date, time, req.body.location, req.session.user.user.userID);
+        await connectionDB.addConnection(conn, req.session.user.user);
 
-    await connectionDB.addConnection(conn, req.session.user.user);
+        await userProfileDB.addConnection(conn, req.session.user.user);
 
-    await userProfileDB.addConnection(conn, req.session.user.user);
+        let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
 
-    let connections = await userProfileDB.getUserProfile(req.session.user.user.userID);
+        req.session.user = new UserProfile(req.session.user.user, connections);
 
-    req.session.user = new UserProfile(req.session.user.user, connections);
-
-    res.redirect("/savedConnections");
+        res.redirect("/savedConnections");
 })
 
 module.exports = router;
