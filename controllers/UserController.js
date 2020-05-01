@@ -25,7 +25,8 @@ router.get('/', function (req, res) {               //load log in page
     res.render('login', {user: req.session.user, errors: null});
 });
 
-router.post('/', urlencodedParser, [check('username').isEmail(), check('password').isLength({ min: 5 })],
+router.post('/', urlencodedParser, [check('username').isEmail().trim().escape(),
+    check('password').isLength({ min: 5 }).trim().escape()],
     async function (req, res) {              //log in the user
 
         let errs = [];
