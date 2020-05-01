@@ -16,15 +16,18 @@ var userSchema = new mongoose.Schema({
     _id: Number,
     first: String,
     last: String,
-    email: String
+    email: String,
+    password: String
 }, {collection: "Users"});
 
 let userModel = mongoose.model("Users", userSchema);
 
-function getUser(username) {       //Finds the User given the username input
+function getUser(username, password) {       //Finds the User given the username input
     return new Promise((resolve, reject) => {
-        userModel.find({ email: username })     // Search Users collection for the email attributed with the user
+        userModel.findOne({ email: username, password: password })     // Search Users collection for the email attributed with the user
             .then((data) => {
+                if(data == null)        //if username/password combo doesn't exist
+
                 let userObj = new User(data[0]._id, data[0].first, data[0].last, data[0].email);
 
                 resolve(userObj);

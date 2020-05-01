@@ -1,9 +1,10 @@
 class User {
-    constructor(userID, first, last, email) {
+    constructor(userID, first, last, email, password) {
         this.userID = userID;
         this.first = first;
         this.last = last;
         this.email = email;
+        this.password = password;
     }
     getID() {
         return this.userID;
@@ -16,6 +17,9 @@ class User {
     }
     getEmail() {
         return this.email;
+    }
+    getPassword() {
+        return this.password;
     }
     setName(first, last) {
         this.first = first;

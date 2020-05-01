@@ -7,8 +7,8 @@ db.createCollection("Users");
 db.createCollection("Connections");
 db.createCollection("UserProfiles");
 
-db.Users.insertMany([{_id: 1, first: "Ryan", last: "Collins", email: "rcolli27@uncc.edu"}, {_id: 2, first: "Norm"
-, last: "Niner", email: "nniner@uncc.edu"}, {_id: 3, first: "Salt", last: "Pepper", email: "speppe@uncc.edu"}]);
+db.Users.insertMany([{_id: 1, first: "Ryan", last: "Collins", email: "rcolli27@uncc.edu", password: "Password1!"}, {_id: 2, first: "Norm"
+, last: "Niner", email: "nniner@uncc.edu", password: "Password1!"}, {_id: 3, first: "Salt", last: "Pepper", email: "speppe@uncc.edu", password: "Password1!"}]);
 
 db.Connections.insertMany([{_id: 1, type: "Board", game: "Scrabble", details: "Scrabble with friends!", date: "09/30/2020",
 time: "3:30PM", location: "Woodward 130", userID: 1}, {_id: 2, type: "Board", game: "Monopoly", details: 
